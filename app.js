@@ -49,13 +49,13 @@ function NewNotification(title, message){
                        "message":message
                      }
                     };
-    structure.actions.push(newAction);    
+    structure.actions.push(newAction);
     console.log(structure);
     document.getElementById("json").value = structure;
 }
 
 //function for setting action of the first property to null and remove link property
-function SetNull(){    
+function SetNull(){
     structure.actions[0].params.action=null;
     delete structure.actions[0].params.link;
     console.log(structure);
@@ -64,9 +64,9 @@ function SetNull(){
 
 //function with UnderScore extract actions
 function ExtractUnderscore(){
-    
+
     var actionsExtracted = _.pick(structure,'actions');
-    
+
     var result = _.map(actionsExtracted.actions, function(value, key){
   return { key : value.type, value : value.params };
         });
@@ -76,21 +76,21 @@ function ExtractUnderscore(){
 
 //function for the sum with underscoe
 function SumUnderscore(){
-    
+
     var input=["0", 2, 4, 6, null, [], 8, 10];
-   var sum = _.reduce(input, function(memo, num){ 
-       
+   var sum = _.reduce(input, function(memo, num){
+
        if(Number.isInteger(num)){
-            return memo + num; 
-       }    
+            return memo + num;
+       }
         else{
             return memo;
         }
-   
+
    }, 0);
-    
-    var avg= sum/input.length; 
-    
+
+    var avg= sum/input.length;
+
     console.log("Sum is: "+sum+" and Average is: "+avg);
 }
 
@@ -106,15 +106,66 @@ function GetIp(){
     type: 'GET',
     dataType: 'json',
     contentType: 'application/json',
-    processData: false,    
+    processData: false,
     success: function (data) {
-        console.log(data);     
+        console.log(data);
     },
     error: function(){
       alert("Cannot get data");
     }
 });
-    
-    
+
+
 }
 
+
+function testEach(){
+    var people = ['Tom','Dick','Larry'];
+    var Tom = {'name':'Tom','age':'29'};
+    _.each(people, function(value,index){
+        console.log(value, index);
+    });
+
+    _.each(Tom, function(value,key){
+        if(key == 'name'){
+            console.log(value);
+        }
+    });
+}
+
+function testMap (){
+    var numbers = [1,2,3];
+    var numberMultiple = _.map(numbers, function(value,index,numbers){
+        numbers[index] = numbers[index] * 2;
+        return value * 3 ;
+    });
+    console.log(numbers);
+    console.log(numberMultiple);
+}
+
+function testReduce (){
+    var numbers = [1,2,3];
+    var sum = _.reduce(numbers, function(total,value,index,numbers){
+        return total + sum;
+    });
+    console.log(numbers);
+}
+
+function testFind (){
+    var numbers = [1,2,3,5,6];
+    var found = _.find(numbers, function(num){
+        return num % 3 == 0;
+    });
+    console.log(found);
+}
+
+function testFilter (){
+    var numbers = [1,2,3,5,6];
+    var found = _.filter(numbers, function(num){
+        return num % 3 == 0;
+    });
+    console.log(found);
+}
+
+
+//Each in UnderScore
